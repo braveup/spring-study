@@ -9,3 +9,4 @@ bin
 *.iml
 .iml
 dependency-reduced-pom.xml
+workspace.xml
