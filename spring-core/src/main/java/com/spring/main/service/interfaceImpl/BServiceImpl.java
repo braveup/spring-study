@@ -17,7 +17,7 @@ public class BServiceImpl implements IBService {
     public void testB(String msg,int type) {
         System.out.println("BServiceImpl.fooB(msg"+msg+")");
         if (type==1){
-            throw new IllegalArgumentException("测试异常");
+            throw new IllegalArgumentException("发生异常的情况");
         }
     }
 
