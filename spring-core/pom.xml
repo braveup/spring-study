@@ -11,9 +11,7 @@
 
     <artifactId>core</artifactId>
 
-    <properties>
-            <spring-version>4.0.9.RELEASE</spring-version>
-    </properties>
+
 
     <dependencies>
         <!--spring所需jar包-->
@@ -54,12 +52,16 @@
             <version>${spring-version}</version>
         </dependency>
         <!--mybatis所需jar包-->
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>5.1.38</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
+            <version>5.0.8</version>
         </dependency>
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
