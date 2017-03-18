@@ -38,7 +38,7 @@ public class IoTest {
     public void test() throws FileNotFoundException {
         File file = new File("E://test");
 
-        System.out.println( File.separator);
+        System.out.println(File.separator);
         if (!file.exists()) {
             file.mkdir();
         }
@@ -59,6 +59,15 @@ public class IoTest {
             }
         }
 
+    }
+
+    @Test
+    public void tesst() {
+        int a = 3;
+        if (a != 2)
+            System.out.println(222);
+        if (a == 2)
+            System.out.println(3333);
     }
 
 

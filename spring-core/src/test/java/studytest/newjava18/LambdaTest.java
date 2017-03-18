@@ -1,12 +1,11 @@
 package studytest.newjava18;
 
 import org.junit.Test;
+import org.springframework.cache.annotation.Cacheable;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Predicate;
 
 /**
  * old java string sort method
@@ -20,7 +19,7 @@ import java.util.concurrent.*;
  * new java 1.8
  * Created by braveup on 2017/3/8.
  */
-public class LambdaTest{
+public class LambdaTest {
     private String c = "c";
 //    public LambdaTest(Object a, Object b) {
 //        this.c = a.toString() + b.toString();
@@ -120,29 +119,49 @@ public class LambdaTest{
     }
 
     /**
-     *
+     * 内建函数式接口
+     * Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）
      */
-    public void run(){
+    @Test
+    public void testPredicate() {
+        String str="";
+        //用于做一些判断
+        Predicate<String>  predicate=(s)->s.length()>0;
+        System.out.println(predicate.test("ssr"));
+        System.out.println(predicate.negate().test(""));
+        Predicate<Boolean>  nonNull= Objects::nonNull;
+        System.out.println(nonNull.test(true));
+        Predicate<Boolean> isNull=Objects::isNull;
+        System.out.println(isNull.test(false));
+        Predicate<String> isEmpty=String::isEmpty;
+        System.out.println(isEmpty.test(str));
+        Predicate<String> isNotEmpty=isEmpty.negate();
+        System.out.println(isNotEmpty.test(str));
+    }
+
+
+    public void run() {
         System.out.println("执行run方法....");
     }
 
     public static String add(String a, String b) {
         return a + b;
     }
+
     //测试@FunctionInterface注解
     @Test
-    public void testRunable(){
-        Runnable   runnable=()->run();
-        Runnable   runnable1=()->run();
-        Runnable   runnable2=()->run();
-        BlockingQueue blockingQueue=new LinkedBlockingDeque<>(2);
+    public void testRunable() {
+        Runnable runnable = () -> run();
+        Runnable runnable1 = () -> run();
+        Runnable runnable2 = () -> run();
+        BlockingQueue blockingQueue = new LinkedBlockingDeque<>(2);
         blockingQueue.offer(runnable);
         blockingQueue.offer(runnable1);
         blockingQueue.offer(runnable2);
         System.out.println(blockingQueue.size());
-        Runnable   runnables= (Runnable)blockingQueue.poll();
+        Runnable runnables = (Runnable) blockingQueue.poll();
         System.out.println(blockingQueue.size());
-        ExecutorService  executor= Executors.newCachedThreadPool();
+        ExecutorService executor = Executors.newCachedThreadPool();
         executor.execute(runnables);
     }
 
