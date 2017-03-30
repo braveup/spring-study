@@ -1,0 +1,12 @@
+target
+bin
+.svn
+.settings
+.project
+.classpath
+.DS_Store
+.idea
+*.iml
+.iml
+dependency-reduced-pom.xml
+workspace.xml
