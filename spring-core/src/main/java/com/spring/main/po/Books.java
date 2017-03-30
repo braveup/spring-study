@@ -8,6 +8,14 @@ public class Books {
     private String snaguo;
     private Helloword helloword;
 
+    public Books() {
+    }
+
+    public Books(String halibote, String snaguo) {
+        this.halibote = halibote;
+        this.snaguo = snaguo;
+    }
+
     public Helloword getHelloword() {
         return helloword;
     }
