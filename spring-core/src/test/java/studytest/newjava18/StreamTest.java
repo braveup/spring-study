@@ -69,12 +69,13 @@ public class StreamTest {
         System.out.println("****************************filter()**************************************");
         stringList.stream().filter(a -> a.startsWith("a")).forEach(System.out::println);
     }
+
     /**
      * Sorted是一个中间操作，能够返回一个排过序的流对象的视图。流对象中的元素会默认按照自然顺序进行排序，
      * 除非你自己指定一个Comparator接口来改变排序规则.
      * 一定要记住，sorted只是创建一个流对象排序的视图，而不会改变原来集合中元素的顺序。原来string集合中的元素顺序是没有改变的
      */
-    public void useStreamSort(){
+    public void useStreamSort() {
         // Stream<T> sorted();返回Stream接口
         // 另外还有一个 Stream<T> sorted(Comparator<? super T>
         // comparator);带Comparator接口的参数
@@ -84,18 +85,19 @@ public class StreamTest {
         // 输出原始集合元素，sorted只是创建排序视图，不影响原来集合顺序
         stringList.stream().forEach(System.out::println);
     }
+
     /**
      * map是一个对于流对象的中间操作，通过给定的方法，它能够把流对象中的每一个元素对应到另外一个对象上。
      * 下面的例子就演示了如何把每个string都转换成大写的string.
      * 不但如此，你还可以把每一种对象映射成为其他类型。对于带泛型结果的流对象，具体的类型还要由传递给map的泛型方法来决定。
      */
-    public void useStreamMap(){
+    public void useStreamMap() {
         // <R> Stream<R> map(Function<? super T, ? extends R> mapper);
         // map方法参数为Function函数式接口(R_String,T_String)
         // 解释:将集合元素转为大写(每个元素映射到大写)->降序排序->迭代输出
         // 不影响原来集合
         System.out.println("****************************Map()**************************************");
-        stringList.stream().map(String::toUpperCase).sorted((a,b)->b.compareTo(a)).forEach(System.out::println);
+        stringList.stream().map(String::toUpperCase).sorted((a, b) -> b.compareTo(a)).forEach(System.out::println);
         System.out.println("****************************Map()**************************************");
 
     }
@@ -104,24 +106,25 @@ public class StreamTest {
      * 匹配操作有多种不同的类型，都是用来判断某一种规则是否与流对象相互吻合的。
      * 所有的匹配操作都是终结操作，只返回一个boolean类型的结果
      */
-   public void  useStreamMatch(){
-       // boolean anyMatch(Predicate<? super T> predicate);参数为Predicate函数式接口
-       // 解释:集合中是否有任一元素匹配以'a'开头
-       System.out.println("任意一个元素是否是a开头:"+stringList.stream().anyMatch(s->s.startsWith("a")));
-       // boolean allMatch(Predicate<? super T> predicate);
-       // 解释:集合中是否所有元素匹配以'a'开头
-       System.out.println("所有的元素都已a开头:"+stringList.stream().allMatch(s->s.startsWith("a")));
-       // boolean noneMatch(Predicate<? super T> predicate);
-       // 解释:集合中是否没有元素匹配以'd'开头
-       System.out.println("所有的元素都不已a开头:"+stringList.stream().noneMatch(s->s.startsWith("a")));
-   }
+    public void useStreamMatch() {
+        // boolean anyMatch(Predicate<? super T> predicate);参数为Predicate函数式接口
+        // 解释:集合中是否有任一元素匹配以'a'开头
+        System.out.println("任意一个元素是否是a开头:" + stringList.stream().anyMatch(s -> s.startsWith("a")));
+        // boolean allMatch(Predicate<? super T> predicate);
+        // 解释:集合中是否所有元素匹配以'a'开头
+        System.out.println("所有的元素都已a开头:" + stringList.stream().allMatch(s -> s.startsWith("a")));
+        // boolean noneMatch(Predicate<? super T> predicate);
+        // 解释:集合中是否没有元素匹配以'd'开头
+        System.out.println("所有的元素都不已a开头:" + stringList.stream().noneMatch(s -> s.startsWith("a")));
+    }
+
     /**
      * Count是一个终结操作，它的作用是返回一个数值，用来标识当前流对象中包含的元素数量
      */
-    public  void useStreamCount(){
+    public void useStreamCount() {
         // long count();
         // 解释:返回集合中以'a'开头元素的数目
-        System.out.println("返回集合中以'a'开头元素的数目"+stringList.stream().filter(s->{
+        System.out.println("返回集合中以'a'开头元素的数目" + stringList.stream().filter(s -> {
             return s.startsWith("a");
         }).count());
     }
@@ -129,7 +132,7 @@ public class StreamTest {
     /**
      * Reduce该操作是一个终结操作，它能够通过某一个方法，对元素进行削减操作。该操作的结果会放在一个Optional变量里返回。
      */
-    public void useStreamReduce(){
+    public void useStreamReduce() {
         // Optional<T> reduce(BinaryOperator<T> accumulator);
         // @FunctionalInterface public interface BinaryOperator<T> extends
         // BiFunction<T,T,T> {
@@ -137,42 +140,44 @@ public class StreamTest {
         // @FunctionalInterface public interface BiFunction<T, U, R> { R apply(T
         // t, U u);
         System.out.println("****************************reduce()**************************************");
-        Optional<String> reduce=stringList.stream().sorted().reduce((a, b)->a+"#"+b);
+        Optional<String> reduce = stringList.stream().sorted().reduce((a, b) -> a + "#" + b);
         // 解释:集合元素排序后->reduce(削减 )->将元素以#连接->生成Optional对象(其get方法返回#拼接后的值)
         reduce.ifPresent(System.out::println);
         System.out.println(reduce.get());
         System.out.println("****************************reduce()**************************************");
     }
+
     /**
      * 使用并行流
      * 流操作可以是顺序的，也可以是并行的。顺序操作通过单线程执行，而并行操作则通过多线程执行.
      * 可使用并行流进行操作来提高运行效率
      */
-   public void  useParallelStreams(){
-       // 初始化一个字符串集合
-       int max=10000;
-       List<String> strings=Lists.newArrayList();
-       for (int i=0;i<max;i++){
-           UUID uuid=UUID.randomUUID();
-           strings.add(uuid.toString());
-       }
-       // 使用顺序流排序(单线程)
-       long sequenceT0 = System.nanoTime();
-       System.out.println("sequenceT0"+sequenceT0);
-       strings.stream().sorted();
-       long sequenceT1 = System.nanoTime();
-       System.out.println("sequenceT0"+sequenceT0);
-       System.out.format("sequential sort took: %d ms.", sequenceT1 - sequenceT0).println();
+    public void useParallelStreams() {
+        // 初始化一个字符串集合
+        int max = 10000;
+        List<String> strings = Lists.newArrayList();
+        for (int i = 0; i < max; i++) {
+            UUID uuid = UUID.randomUUID();
+            strings.add(uuid.toString());
+        }
+        // 使用顺序流排序(单线程)
+        long sequenceT0 = System.nanoTime();
+        System.out.println("sequenceT0" + sequenceT0);
+        strings.stream().sorted();
+        long sequenceT1 = System.nanoTime();
+        System.out.println("sequenceT0" + sequenceT0);
+        System.out.format("sequential sort took: %d ms.", sequenceT1 - sequenceT0).println();
 
-       // 使用并行流排序
-       long parallelT0 = System.nanoTime();
-       // default Stream<E> parallelStream() {
-       // parallelStream为Collection接口的一个默认方法
-       strings.parallelStream().sorted();
-       long parallelT1 = System.nanoTime();
-       System.out.format("sequential sort took: %d ms.", parallelT1 - parallelT0).println();
+        // 使用并行流排序
+        long parallelT0 = System.nanoTime();
+        // default Stream<E> parallelStream() {
+        // parallelStream为Collection接口的一个默认方法
+        strings.parallelStream().sorted();
+        long parallelT1 = System.nanoTime();
+        System.out.format("sequential sort took: %d ms.", parallelT1 - parallelT0).println();
 
-   }
+    }
+
 
     public static void main(String[] args) {
         StreamTest streamTest = new StreamTest();
@@ -183,6 +188,10 @@ public class StreamTest {
         streamTest.useStreamCount();
         streamTest.useStreamReduce();
         streamTest.useParallelStreams();
+//        String jsonString="[{'id':'1'},{'id':'2'}]";
+//        ObjectMapper mapper = new ObjectMapper();
+//        List<Bean> beanList = mapper.readValue(jsonString, new TypeReference<List<Bean>>() {});
+
     }
 
 
