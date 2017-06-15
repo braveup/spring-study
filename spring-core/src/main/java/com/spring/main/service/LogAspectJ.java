@@ -34,11 +34,11 @@ public class LogAspectJ {
     }
 
 
-   @Before("execution(*.com.spring.main.service.aop.DemoMethodService.*(..))")
-    public void before(JoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Method method = methodSignature.getMethod();
-        System.out.println("方法规则式拦截" + method.getName());
-    }
+//   @Before("execution(*.com.spring.main.service.aop.DemoMethodService.*(..))")
+//    public void before(JoinPoint joinPoint) {
+//        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+//        Method method = methodSignature.getMethod();
+//        System.out.println("方法规则式拦截" + method.getName());
+//    }
 
 }
