@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by braveup on 2017/6/16.
  *
- * 任务执行类
+ * 任务执行类Ceshi
  */
 @Service
 public class ThreadExecutorService {
